@@ -1,0 +1,17 @@
+/* src/components/Header.css */
+.logo {
+    width: 40px;
+    margin-right: 10px;
+  }
+  
+  .navbar {
+    background-image: url('#'); /* Use a background image */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .nav-link {
+    color: #fff !important;
+    font-weight: bold;
+  }
+  

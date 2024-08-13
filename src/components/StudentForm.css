@@ -1,0 +1,12 @@
+/* src/components/StudentForm.css */
+.card {
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+  }
+  
+  .card-title {
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
