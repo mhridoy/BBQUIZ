@@ -23,6 +23,7 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+binarybeatsquiz-firebase-adminsdk-fp54i-2a93717601.json
 .env.local
 .env.development.local
 .env.test.local
