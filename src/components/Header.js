@@ -1,48 +1,140 @@
-// src/components/Header.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X, Zap } from 'lucide-react';
+import { auth } from '../firebase'; // Import Firebase auth
+import { signOut } from 'firebase/auth';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
+    // Check if the user is logged in
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user);
+    });
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      setIsLoggedIn(false);
+      navigate('/teacher'); // Redirect to the login page after logout
+    }).catch((error) => {
+      console.error('Error logging out:', error);
+    });
+  };
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    // { name: 'Quiz', path: '/quiz' }, // Hide the Quiz tab
+  ];
+
   return (
-    <nav className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white shadow-lg">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrollPosition > 50 ? 'bg-white shadow-md' : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <Link className="text-3xl font-extrabold tracking-wide flex items-center hover:scale-105 transition-transform duration-200" to="/">
-            <span className="mr-2">⚡</span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
+          <Link 
+            className="text-3xl font-extrabold tracking-wide flex items-center hover:scale-105 transition-transform duration-200" 
+            to="/"
+          >
+            <Zap className="mr-2 text-yellow-400 animate-pulse" size={32} />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 animate-gradient">
               Binary Beats
             </span>
-            <span className="text-white ml-2">Exam Portal</span>
           </Link>
           <ul className="hidden md:flex space-x-8 text-lg">
-            <li>
-              <Link className="hover:text-yellow-300 transition-colors duration-200 relative group" to="/">
-                Home
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 transition-all group-hover:w-full"></span>
-              </Link>
-            </li>
-            {/* <li>
-              <Link className="hover:text-yellow-300 transition-colors duration-200 relative group" to="/quiz">
-                Take Quiz
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 transition-all group-hover:w-full"></span>
-              </Link>
-            </li> */}
-            <li>
-              <Link className="hover:text-yellow-300 transition-colors duration-200 relative group" to="/teacher">
-                Teacher Login
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 transition-all group-hover:w-full"></span>
-              </Link>
-            </li>
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <Link 
+                  className={`font-semibold transition-colors duration-200 relative group overflow-hidden ${
+                    scrollPosition > 50 ? 'text-gray-800 hover:text-purple-600' : 'text-white hover:text-yellow-300'
+                  }`}
+                  to={item.path}
+                >
+                  {item.name}
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                </Link>
+              </li>
+            ))}
+            {isLoggedIn ? (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className={`font-semibold transition-colors duration-200 relative group overflow-hidden ${
+                    scrollPosition > 50 ? 'text-gray-800 hover:text-purple-600' : 'text-white hover:text-yellow-300'
+                  }`}
+                >
+                  Logout
+                </button>
+              </li>
+            ) : (
+              <li>
+                <Link 
+                  className={`font-semibold transition-colors duration-200 relative group overflow-hidden ${
+                    scrollPosition > 50 ? 'text-gray-800 hover:text-purple-600' : 'text-white hover:text-yellow-300'
+                  }`}
+                  to="/teacher"
+                >
+                  Teacher Login
+                </Link>
+              </li>
+            )}
           </ul>
           <div className="md:hidden">
-            <button className="text-white focus:outline-none">
-              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
+            <button 
+              className={`focus:outline-none ${scrollPosition > 50 ? 'text-gray-800' : 'text-white'}`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
       </div>
+      {isMenuOpen && (
+        <div className="md:hidden bg-white shadow-lg">
+          <ul className="flex flex-col items-center py-4">
+            {navItems.map((item, index) => (
+              <li key={index} className="my-2">
+                <Link 
+                  className="text-gray-800 hover:text-purple-600 transition-colors duration-200 font-semibold"
+                  to={item.path}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+            {isLoggedIn && (
+              <li className="my-2">
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="text-gray-800 hover:text-purple-600 transition-colors duration-200 font-semibold"
+                >
+                  Logout
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };

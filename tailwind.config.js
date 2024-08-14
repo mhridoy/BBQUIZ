@@ -1,12 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
+    extend: {
+      colors: {
+        indigo: {
+          900: '#312e81',
+          // Add other shades if needed
+        },
+        purple: {
+          900: '#4c1d95',
+          // Add other shades if needed
+        },
+        // You can add more custom colors here
+      },
+    },
   },
   plugins: [],
-};
+}
