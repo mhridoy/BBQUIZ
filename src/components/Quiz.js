@@ -1104,6 +1104,7 @@ console.log(sum(5, 10));
     60: 0  // 15
   };
 
+  
   const handleFinishQuiz = async () => {
     const student = JSON.parse(localStorage.getItem('student'));
     const correctCount = Object.keys(answers).reduce((count, key) => {
@@ -1156,10 +1157,12 @@ console.log(sum(5, 10));
   const renderQuestion = () => {
     const question = questions[currentQuestion];
     return (
-      <div key={question.id}>
-        <h3 className="text-xl font-semibold mb-2">{question.question}</h3>
-        <pre className="bg-gray-100 p-3 rounded mb-4 overflow-x-auto">{question.code}</pre>
-        <div className="space-y-2">
+      <div key={question.id} className="bg-white p-6 rounded-lg shadow-md mb-6">
+        <h3 className="text-xl font-semibold mb-4 text-indigo-600">{question.question}</h3>
+        <pre className="bg-gray-800 text-white p-4 rounded-lg border border-gray-200 mb-4 overflow-x-auto">
+          {question.code}
+        </pre>
+        <div className="space-y-3">
           {question.options.map((option, index) => (
             <div key={index} className="flex items-center">
               <input
@@ -1169,9 +1172,9 @@ console.log(sum(5, 10));
                 value={index}
                 checked={answers[currentQuestion] === index}
                 onChange={() => handleChange(index)}
-                className="form-radio text-blue-600"
+                className="form-radio h-4 w-4 text-indigo-600"
               />
-              <label htmlFor={`option-${index}`} className="ml-2 text-gray-700">{option}</label>
+              <label htmlFor={`option-${index}`} className="ml-3 text-gray-700 cursor-pointer">{option}</label>
             </div>
           ))}
         </div>
@@ -1181,11 +1184,13 @@ console.log(sum(5, 10));
 
   return (
     <div className="container mx-auto mt-12 max-w-4xl">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-indigo-600 mb-6">Web Development Quiz</h2>
+      <div className="bg-white p-10 rounded-lg shadow-lg">
+        <h2 className="text-4xl font-bold text-center text-indigo-700 mb-8">Web Development Quiz</h2>
         <div className="flex justify-between items-center mb-6">
-          <span className="text-lg font-semibold">Question {currentQuestion + 1} of {questions.length}</span>
-          <span className="text-lg font-semibold">
+          <span className="text-lg font-semibold text-gray-700">
+            Question {currentQuestion + 1} of {questions.length}
+          </span>
+          <span className="text-lg font-semibold text-gray-700">
             Time Left: <span className="text-red-500">
               {Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
             </span>
@@ -1204,7 +1209,7 @@ console.log(sum(5, 10));
         </div>
         <button
           onClick={handleNext}
-          className="w-full bg-green-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105"
+          className="w-full bg-indigo-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105"
         >
           {currentQuestion < questions.length - 1 ? 'Next Question' : 'Finish Quiz'}
         </button>
