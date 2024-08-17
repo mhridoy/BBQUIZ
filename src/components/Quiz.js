@@ -1,8 +1,8 @@
-// src/components/Quiz.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import questions from '../questions'; // Import the questions
 
 const Quiz = () => {
   const [answers, setAnswers] = useState({});
@@ -10,256 +10,10 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const navigate = useNavigate();
 
-  const questions = [
-    {
-      id: 1,
-      question: "What tag is used to define the largest heading in HTML?",
-      options: [
-        "<h1>",
-        "<h6>",
-        "<p>",
-        "<div>"
-      ],
-      correctAnswer: 0
-    },
-    {
-      id: 2,
-      question: "Which HTML tag is used to insert an image?",
-      options: [
-        "<img>",
-        "<src>",
-        "<image>",
-        "<picture>"
-      ],
-      correctAnswer: 0
-    },
-    {
-      id: 3,
-      question: "Which CSS property is used to change the background color?",
-      options: [
-        "color",
-        "background-color",
-        "border-color",
-        "text-color"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 4,
-      question: "What is the default value of the CSS `position` property?",
-      options: [
-        "relative",
-        "absolute",
-        "fixed",
-        "static"
-      ],
-      correctAnswer: 3
-    },
-    {
-      id: 5,
-      question: "Which HTML tag is used to create a hyperlink?",
-      options: [
-        "<link>",
-        "<a>",
-        "<href>",
-        "<hyperlink>"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 6,
-      question: "What CSS property is used to control the spacing between elements' content and their border?",
-      options: [
-        "margin",
-        "padding",
-        "border-spacing",
-        "gap"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 7,
-      question: "Which CSS property would you use to make the text bold?",
-      options: [
-        "font-style",
-        "font-weight",
-        "text-transform",
-        "text-decoration"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 8,
-      question: "How do you add a comment in CSS?",
-      options: [
-        "<!-- This is a comment -->",
-        "// This is a comment",
-        "/* This is a comment */",
-        "# This is a comment"
-      ],
-      correctAnswer: 2
-    },
-    {
-      id: 9,
-      question: "In HTML, what does the `<br>` tag do?",
-      options: [
-        "Creates a horizontal line",
-        "Breaks the line and moves to the next one",
-        "Makes the text bold",
-        "Inserts a blank space"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 10,
-      question: "Which HTML tag is used to create a table?",
-      options: [
-        "<table>",
-        "<td>",
-        "<th>",
-        "<tr>"
-      ],
-      correctAnswer: 0
-    },
-    {
-      id: 11,
-      question: "How do you create an ordered list in HTML?",
-      options: [
-        "<ul>",
-        "<ol>",
-        "<li>",
-        "<dl>"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 12,
-      question: "Which CSS property is used to make the text italic?",
-      options: [
-        "font-style: italic;",
-        "font-weight: italic;",
-        "text-transform: italic;",
-        "text-decoration: italic;"
-      ],
-      correctAnswer: 0
-    },
-    {
-      id: 13,
-      question: "Which JavaScript function is used to display data in the browser's console?",
-      options: [
-        "console.display()",
-        "console.log()",
-        "alert()",
-        "document.write()"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 14,
-      question: "What does the `toUpperCase()` method do in JavaScript?",
-      options: [
-        "Converts a string to lowercase",
-        "Converts a string to uppercase",
-        "Capitalizes the first letter of a string",
-        "Reverses the string"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 15,
-      question: "Which HTML element is used to specify a form field where the user can enter data?",
-      options: [
-        "<textarea>",
-        "<form>",
-        "<input>",
-        "<button>"
-      ],
-      correctAnswer: 2
-    },
-    {
-      id: 16,
-      question: "What does the CSS property `text-align: center;` do to text inside a block element?",
-      options: [
-        "Aligns text to the left",
-        "Aligns text to the right",
-        "Justifies the text",
-        "Centers the text"
-      ],
-      correctAnswer: 3
-    },
-    {
-      id: 17,
-      question: "In JavaScript, which method is used to join two or more strings?",
-      options: [
-        "concat()",
-        "join()",
-        "combine()",
-        "append()"
-      ],
-      correctAnswer: 0
-    },
-    {
-      id: 18,
-      question: "What is the purpose of the `<select>` tag in HTML?",
-      options: [
-        "To create a dropdown list",
-        "To create a radio button",
-        "To create a checkbox",
-        "To create a button"
-      ],
-      correctAnswer: 0
-    },
-    {
-      id: 19,
-      question: "Which CSS property is used to set the space between letters in a text?",
-      options: [
-        "line-height",
-        "letter-spacing",
-        "word-spacing",
-        "text-spacing"
-      ],
-      correctAnswer: 1
-    },
-    {
-      id: 20,
-      question: "Which HTML attribute is used to define inline styles?",
-      options: [
-        "class",
-        "id",
-        "style",
-        "inline"
-      ],
-      correctAnswer: 2
-    }
-  ];
-
-  const correctAnswers = {
-    1: 0,  // <h1>
-    2: 0,  // <img>
-    3: 1,  // background-color
-    4: 3,  // static
-    5: 1,  // <a>
-    6: 1,  // padding
-    7: 1,  // font-weight
-    8: 2,  // /* This is a comment */
-    9: 1,  // Breaks the line and moves to the next one
-    10: 0, // <table>
-    11: 1, // <ol>
-    12: 0, // font-style: italic;
-    13: 1, // console.log()
-    14: 1, // Converts a string to uppercase
-    15: 2, // <input>
-    16: 3, // Centers the text
-    17: 0, // concat()
-    18: 0, // To create a dropdown list
-    19: 1, // letter-spacing
-    20: 2  // style
-  };
-  
   const handleFinishQuiz = async () => {
     const student = JSON.parse(localStorage.getItem('student'));
     const correctCount = Object.keys(answers).reduce((count, key) => {
-      return count + (answers[key] === correctAnswers[key] ? 1 : 0);
+      return count + (answers[key] === questions[key - 1].correctAnswer ? 1 : 0);
     }, 0);
 
     const result = {
@@ -267,6 +21,7 @@ const Quiz = () => {
       batch: student.batch,
       correctCount,
       totalQuestions: questions.length,
+      answers: answers // Include all answers
     };
 
     try {
@@ -294,7 +49,7 @@ const Quiz = () => {
   }, [timeLeft]);
 
   const handleChange = (option) => {
-    setAnswers((prevAnswers) => ({ ...prevAnswers, [currentQuestion]: option }));
+    setAnswers((prevAnswers) => ({ ...prevAnswers, [currentQuestion + 1]: option })); // Store answers based on question number (1-based index)
   };
 
   const handleNext = () => {
@@ -321,7 +76,7 @@ const Quiz = () => {
                 id={`option-${index}`}
                 name={`question-${question.id}`}
                 value={index}
-                checked={answers[currentQuestion] === index}
+                checked={answers[currentQuestion + 1] === index}
                 onChange={() => handleChange(index)}
                 className="form-radio h-4 w-4 text-indigo-600"
               />

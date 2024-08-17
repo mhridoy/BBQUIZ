@@ -4,11 +4,13 @@ import { db } from '../firebase';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Users, Book, CheckCircle, Award, RefreshCw, Search, Zap } from 'lucide-react';
+import questions from '../questions'; // Import the questions
 
 const TeacherDashboard = () => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [expandedStudent, setExpandedStudent] = useState(null);
 
   useEffect(() => {
     fetchResults();
@@ -53,6 +55,14 @@ const TeacherDashboard = () => {
     result.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     result.batch.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const toggleExpandStudent = (studentId) => {
+    if (expandedStudent === studentId) {
+      setExpandedStudent(null);
+    } else {
+      setExpandedStudent(studentId);
+    }
+  };
 
   return (
     <div className="min-h-screen text-white">
@@ -233,25 +243,67 @@ const TeacherDashboard = () => {
                         <th className="py-3 px-4 text-left text-white">Correct Answers</th>
                         <th className="py-3 px-4 text-left text-white">Total Questions</th>
                         <th className="py-3 px-4 text-left text-white">Score</th>
+                        <th className="py-3 px-4 text-left text-white">Details</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredResults.map((result, index) => (
-                        <motion.tr 
-                          key={result.id}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className="hover:bg-white hover:bg-opacity-10 transition-colors duration-200"
-                        >
-                          <td className="py-3 px-4 border-b border-gray-700 text-white">{result.name}</td>
-                          <td className="py-3 px-4 border-b border-gray-700 text-white">{result.batch}</td>
-                          <td className="py-3 px-4 border-b border-gray-700 text-white">{result.correctCount}</td>
-                          <td className="py-3 px-4 border-b border-gray-700 text-white">{result.totalQuestions}</td>
-                          <td className="py-3 px-4 border-b border-gray-700 text-white">
-                            {((result.correctCount / result.totalQuestions) * 100).toFixed(2)}%
-                          </td>
-                        </motion.tr>
+                        <React.Fragment key={result.id}>
+                          <motion.tr 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.05 }}
+                            className="hover:bg-white hover:bg-opacity-10 transition-colors duration-200"
+                          >
+                            <td className="py-3 px-4 border-b border-gray-700 text-white">{result.name}</td>
+                            <td className="py-3 px-4 border-b border-gray-700 text-white">{result.batch}</td>
+                            <td className="py-3 px-4 border-b border-gray-700 text-white">{result.correctCount}</td>
+                            <td className="py-3 px-4 border-b border-gray-700 text-white">{result.totalQuestions}</td>
+                            <td className="py-3 px-4 border-b border-gray-700 text-white">
+                              {((result.correctCount / result.totalQuestions) * 100).toFixed(2)}%
+                            </td>
+                            <td className="py-3 px-4 border-b border-gray-700 text-white">
+                              <button 
+                                onClick={() => toggleExpandStudent(result.id)}
+                                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-300"
+                              >
+                                {expandedStudent === result.id ? 'Hide Details' : 'Show Details'}
+                              </button>
+                            </td>
+                          </motion.tr>
+                          {expandedStudent === result.id && (
+                            <motion.tr 
+                              key={`${result.id}-details`}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                              className="bg-white bg-opacity-10"
+                            >
+                              <td colSpan="6" className="py-3 px-4 border-b border-gray-700 text-white">
+                                <h3 className="text-lg font-semibold mb-4">Answers:</h3>
+                                <ul className="space-y-2">
+                                  {result.answers && Object.keys(result.answers).map((questionId) => {
+                                    const question = questions.find(q => q.id === parseInt(questionId));
+                                    const studentAnswer = result.answers[questionId];
+                                    const correctAnswer = question.correctAnswer;
+                                    return (
+                                      <li key={questionId}>
+                                        <strong>Question: </strong>{question?.question}
+                                        <br />
+                                        <strong>Correct Answer: </strong>{question?.options[correctAnswer]}
+                                        <br />
+                                        <strong>Student's Answer: </strong>{question?.options[studentAnswer]}
+                                        <br />
+                                        <strong>Status: </strong>{studentAnswer === correctAnswer ? 'Correct' : 'Incorrect'}
+                                      </li>
+                                    );
+                                  })}
+                                  {!result.answers && <li>No answers available.</li>}
+                                </ul>
+                              </td>
+                            </motion.tr>
+                          )}
+                        </React.Fragment>
                       ))}
                     </tbody>
                   </table>
