@@ -1,333 +1,554 @@
+
 const questions = [
   {
     id: 1,
-    question: "What is the purpose of the `<h1>` tag in HTML?",
+    question: "Which tag is used to create the largest heading in HTML?",
     options: [
-      "To create a paragraph",
-      "To create the largest heading",
-      "To create a link",
-      "To create a list item"
+      "<h6>",
+      "<h1>",
+      "<header>",
+      "<head>"
     ],
-    correctAnswer: 1  // Index of "To create the largest heading"
+    correctAnswer: 1
   },
   {
     id: 2,
-    question: "Which tag is used to insert an image in an HTML document?",
+    question: "What does the `<p>` tag represent in HTML?",
     options: [
-      "<img>",
-      "<src>",
-      "<image>",
-      "<picture>"
+      "A paragraph",
+      "A picture",
+      "A heading",
+      "A link"
     ],
-    correctAnswer: 0  // Index of "<img>"
+    correctAnswer: 0
   },
   {
     id: 3,
-    question: "What does the `<p>` tag represent in HTML?",
+    question: "Which tag is used to insert an image in an HTML page?",
     options: [
-      "Paragraph",
-      "Image",
-      "Hyperlink",
-      "Button"
+      "<image>",
+      "<img>",
+      "<pic>",
+      "<src>"
     ],
-    correctAnswer: 0  // Index of "Paragraph"
+    correctAnswer: 1
   },
   {
     id: 4,
-    question: "Which tag is used to create a line break in HTML?",
+    question: "How do you add a horizontal line in HTML?",
     options: [
-      "<break>",
+      "<line>",
+      "<hr>",
       "<br>",
-      "<lb>",
-      "<line>"
+      "<hl>"
     ],
-    correctAnswer: 1  // Index of "<br>"
+    correctAnswer: 1
   },
   {
     id: 5,
-    question: "What does the `<div>` tag do in HTML?",
+    question: "Which tag creates a line break in HTML?",
     options: [
-      "Creates a division or section",
-      "Creates a list",
-      "Creates a table",
-      "Creates a hyperlink"
+      "<break>",
+      "<lb>",
+      "<br>",
+      "<bl>"
     ],
-    correctAnswer: 0  // Index of "Creates a division or section"
+    correctAnswer: 2
   },
   {
     id: 6,
-    question: "Which attribute is used to define the width of an image in HTML?",
+    question: "How do you change the font size using inline CSS in HTML?",
     options: [
-      "height",
-      "src",
-      "width",
-      "size"
+      `<p style="text-size:16px;">`,
+      `<p style="font-size:16px;">`,
+      `<p style="size-font:16px;">`,
+      `<p style="font:16px;">`
     ],
-    correctAnswer: 2  // Index of "width"
+    correctAnswer: 1
   },
   {
     id: 7,
-    question: "Which tag is used to create an unordered list in HTML?",
+    question: "Which attribute is used with the `<img>` tag to specify the image source?",
     options: [
-      "<ul>",
-      "<ol>",
-      "<li>",
-      "<list>"
+      "link",
+      "href",
+      "src",
+      "source"
     ],
-    correctAnswer: 0  // Index of "<ul>"
+    correctAnswer: 2
   },
   {
     id: 8,
-    question: "Which CSS property is used to change the background color?",
+    question: "What does CSS stand for?",
     options: [
-      "color",
-      "background-color",
-      "border-color",
-      "font-color"
+      "Computer Style Sheets",
+      "Creative Style Sheets",
+      "Cascading Style Sheets",
+      "Colorful Style Sheets"
     ],
-    correctAnswer: 1  // Index of "background-color"
+    correctAnswer: 2
   },
   {
     id: 9,
-    question: "Which HTML element is used to create a form?",
+    question: "Which CSS property is used to change the background color?",
     options: [
-      "<input>",
-      "<form>",
-      "<textarea>",
-      "<button>"
+      "color",
+      "bgcolor",
+      "background-color",
+      "background"
     ],
-    correctAnswer: 1  // Index of "<form>"
+    correctAnswer: 2
   },
   {
     id: 10,
-    question: "Which CSS property is used to add space inside an element's border?",
+    question: "How do you center-align text using CSS?",
     options: [
-      "padding",
-      "margin",
-      "border-spacing",
-      "line-height"
+      "text-align: center;",
+      "align-text: center;",
+      "horizontal-align: center;",
+      "text-center: true;"
     ],
-    correctAnswer: 0  // Index of "padding"
+    correctAnswer: 0
   },
   {
     id: 11,
-    question: "What is the purpose of the `<label>` tag in an HTML form?",
+    question: "Which CSS property is used to change the font of an element?",
     options: [
-      "To create a text input",
-      "To create a button",
-      "To label form elements",
-      "To submit a form"
+      "font-family",
+      "font-style",
+      "text-font",
+      "font-weight"
     ],
-    correctAnswer: 2  // Index of "To label form elements"
+    correctAnswer: 0
   },
   {
     id: 12,
-    question: "Which HTML element is used to create a drop-down list?",
+    question: "What does the 'float' property in CSS do?",
     options: [
-      "<select>",
-      "<option>",
-      "<dropdown>",
-      "<input>"
+      "Positions an element to the left or right",
+      "Changes the opacity of an element",
+      "Centers an element",
+      "Creates a floating window"
     ],
-    correctAnswer: 0  // Index of "<select>"
+    correctAnswer: 0
   },
   {
     id: 13,
-    question: "What does the `<ol>` tag create in an HTML document?",
+    question: "How do you add a comment in HTML?",
     options: [
-      "An ordered list",
-      "An unordered list",
-      "A list item",
-      "A numbered paragraph"
+      "`/* This is a comment */`",
+      "`// This is a comment`",
+      "`<!-- This is a comment -->`",
+      "`** This is a comment **`"
     ],
-    correctAnswer: 0  // Index of "An ordered list"
+    correctAnswer: 2
   },
   {
     id: 14,
-    question: "Which CSS property is used to align text to the center?",
+    question: "Which tag is used to link an external CSS file in HTML?",
     options: [
-      "text-align: left;",
-      "text-align: right;",
-      "text-align: center;",
-      "text-align: justify;"
+      "<style>",
+      "<link>",
+      "<css>",
+      "<script>"
     ],
-    correctAnswer: 2  // Index of "text-align: center;"
+    correctAnswer: 1
   },
   {
     id: 15,
-    question: "What does the `float` property in CSS do?",
+    question: "What does 'border-radius' property do in CSS?",
     options: [
-      "Aligns an element to the left or right",
-      "Centers an element",
-      "Fixes an element's position",
-      "Makes an element float above others"
+      "Sets the thickness of a border",
+      "Rounds the corners of an element's border",
+      "Defines the style of the border",
+      "Sets the color of the border"
     ],
-    correctAnswer: 0  // Index of "Aligns an element to the left or right"
+    correctAnswer: 1
   },
   {
     id: 16,
-    question: "Which HTML element is used to add a button?",
+    question: "How do you make a list that lists the items with numbers?",
     options: [
-      "<button>",
-      "<input>",
-      "<form>",
-      "<label>"
+      "<ul>",
+      "<ol>",
+      "<li>",
+      "<list>"
     ],
-    correctAnswer: 0  // Index of "<button>"
+    correctAnswer: 1
   },
   {
     id: 17,
-    question: "Which attribute in the `<img>` tag is used to specify the image source?",
+    question: "Which HTML tag is used to create a division or a section?",
     options: [
-      "src",
-      "href",
-      "link",
-      "source"
+      "<span>",
+      "<div>",
+      "<section>",
+      "<article>"
     ],
-    correctAnswer: 0  // Index of "src"
+    correctAnswer: 1
   },
   {
     id: 18,
-    question: "Which CSS property controls the text color of an element?",
+    question: "In CSS, how do you select an element with class 'container'?",
     options: [
-      "color",
-      "background-color",
-      "font-color",
-      "text-style"
+      "#container",
+      ".container",
+      "container",
+      "*container"
     ],
-    correctAnswer: 0  // Index of "color"
+    correctAnswer: 1
   },
   {
     id: 19,
-    question: "Which HTML tag is used to create a hyperlink?",
+    question: "What is the correct HTML for creating a hyperlink?",
     options: [
-      "<a>",
-      "<link>",
-      "<href>",
-      "<url>"
+      `<a>http://www.example.com</a>`,
+      `<a href="http://www.example.com">Link</a>`,
+      `<link url="http://www.example.com">Link</link>`,
+      `<a url="http://www.example.com">Link</a>`
     ],
-    correctAnswer: 0  // Index of "<a>"
+    correctAnswer: 1
   },
   {
     id: 20,
-    question: "What does the `border-radius` property do in CSS?",
+    question: "Which CSS property controls the text size?",
     options: [
-      "Adds a border to an element",
-      "Rounds the corners of an element",
-      "Changes the border color",
-      "Increases the border width"
+      "text-size",
+      "font-size",
+      "font-style",
+      "size"
     ],
-    correctAnswer: 1  // Index of "Rounds the corners of an element"
+    correctAnswer: 1
   },
   {
     id: 21,
-    question: "Which tag is used to define a table row in HTML?",
+    question: "How do you add a background image in CSS?",
     options: [
-      "<td>",
-      "<tr>",
-      "<th>",
-      "<table>"
+      `background-img: url('image.jpg');`,
+      `background-image: url('image.jpg');`,
+      `bg-image: url('image.jpg');`,
+      `image-background: url('image.jpg');`
     ],
-    correctAnswer: 1  // Index of "<tr>"
+    correctAnswer: 1
   },
   {
     id: 22,
-    question: "What is the default display property of a `<div>` element in HTML?",
+    question: "Which property is used to change the left margin of an element?",
     options: [
-      "block",
-      "inline",
-      "inline-block",
-      "none"
+      "margin-left",
+      "padding-left",
+      "indent-left",
+      "spacing-left"
     ],
-    correctAnswer: 0  // Index of "block"
+    correctAnswer: 0
   },
   {
     id: 23,
-    question: "Which CSS property is used to change the font size?",
+    question: "What is the correct way to write a JavaScript array?",
     options: [
-      "font-style",
-      "font-weight",
-      "font-size",
-      "font-family"
+      `let colors = "red", "green", "blue";`,
+      `let colors = ["red", "green", "blue"];`,
+      `let colors = (1:"red", 2:"green", 3:"blue");`,
+      `let colors = {"red", "green", "blue"};`
     ],
-    correctAnswer: 2  // Index of "font-size"
+    correctAnswer: 1
   },
   {
     id: 24,
-    question: "Which tag is used to define a list item in HTML?",
+    question: "How do you write 'Hello World' in an alert box in JavaScript?",
     options: [
-      "<li>",
-      "<ul>",
-      "<ol>",
-      "<list>"
+      `msgBox('Hello World');`,
+      `alertBox('Hello World');`,
+      `alert('Hello World');`,
+      `msg('Hello World');`
     ],
-    correctAnswer: 0  // Index of "<li>"
+    correctAnswer: 2
   },
   {
     id: 25,
-    question: "What does the `<title>` tag specify in an HTML document?",
+    question: "Which event occurs when the user clicks on an HTML element?",
     options: [
-      "The title of the document shown in the browser tab",
-      "The main heading of the page",
-      "The subtitle of the page",
-      "The alt text for an image"
+      "onmouseclick",
+      "onchange",
+      "onclick",
+      "onmouseover"
     ],
-    correctAnswer: 0  // Index of "The title of the document shown in the browser tab"
+    correctAnswer: 2
   },
   {
     id: 26,
-    question: "Which attribute is used to open a hyperlink in a new tab?",
+    question: "How do you declare a JavaScript variable?",
     options: [
-      "href",
-      "target",
-      "rel",
-      "src"
+      "variable carName;",
+      "var carName;",
+      "v carName;",
+      "declare carName;"
     ],
-    correctAnswer: 1  // Index of "target"
+    correctAnswer: 1
   },
   {
     id: 27,
-    question: "Which HTML tag is used to create a text area where users can type multiple lines of text?",
+    question: "Which operator is used to assign a value to a variable in JavaScript?",
     options: [
-      "<input>",
-      "<textarea>",
-      "<form>",
-      "<textbox>"
+      "-",
+      "*",
+      "=",
+      "/"
     ],
-    correctAnswer: 1  // Index of "<textarea>"
+    correctAnswer: 2
   },
   {
     id: 28,
-    question: "Which CSS property is used to make the text bold?",
+    question: "How do you create a function in JavaScript?",
     options: [
-      "font-weight",
-      "font-style",
-      "font-size",
-      "font-family"
+      "function = myFunction()",
+      "function myFunction()",
+      "function:myFunction()",
+      "new function myFunction()"
     ],
-    correctAnswer: 0  // Index of "font-weight"
+    correctAnswer: 1
   },
   {
     id: 29,
-    question: "What does the `opacity` property in CSS control?",
+    question: "How do you call a function named 'myFunction'?",
     options: [
-      "The size of an element",
-      "The color of an element",
-      "The transparency of an element",
-      "The position of an element"
+      "call myFunction()",
+      "call function myFunction()",
+      "myFunction()",
+      "execute myFunction()"
     ],
-    correctAnswer: 2  // Index of "The transparency of an element"
+    correctAnswer: 2
   },
   {
     id: 30,
-    question: "Which tag is used to define a header in HTML?",
+    question: "Which built-in method combines the text of two strings and returns a new string?",
     options: [
-      "<header>",
-      "<head>",
-      "<h1>",
-      "<hgroup>"
+      "append()",
+      "concat()",
+      "attach()",
+      "combine()"
     ],
-    correctAnswer: 0  // Index of "<header>"
+    correctAnswer: 1
+  },
+  {
+    id: 31,
+    question: "How can you add a comment in JavaScript?",
+    options: [
+      "`<!-- This is a comment -->`",
+      "`// This is a comment`",
+      "`** This is a comment **`",
+      "`\\ This is a comment`"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 32,
+    question: "What is the correct way to write an array in JavaScript?",
+    options: [
+      "let colors = ['red', 'green', 'blue'];",
+      "let colors = (1:'red', 2:'green', 3:'blue');",
+      "let colors = {'red', 'green', 'blue'};",
+      "let colors = 'red', 'green', 'blue';"
+    ],
+    correctAnswer: 0
+  },
+  {
+    id: 33,
+    question: "In JavaScript, which of the following is a logical operator?",
+    options: [
+      "+",
+      "&&",
+      "%",
+      "="
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 34,
+    question: "What will the following code output? `console.log(typeof null);`",
+    options: [
+      "'null'",
+      "'undefined'",
+      "'object'",
+      "'number'"
+    ],
+    correctAnswer: 2
+  },
+  {
+    id: 35,
+    question: "Which HTML attribute is used to define inline styles?",
+    options: [
+      "css",
+      "style",
+      "class",
+      "styles"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 36,
+    question: "How do you select an element with id 'header' in CSS?",
+    options: [
+      ".header",
+      "#header",
+      "header",
+      "*header"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 37,
+    question: "Which CSS property is used to change the text color of an element?",
+    options: [
+      "fgcolor",
+      "text-color",
+      "color",
+      "font-color"
+    ],
+    correctAnswer: 2
+  },
+  {
+    id: 38,
+    question: "Which property is used to change the font of an element in CSS?",
+    options: [
+      "font-weight",
+      "font-style",
+      "font-family",
+      "font-display"
+    ],
+    correctAnswer: 2
+  },
+  {
+    id: 39,
+    question: "Which of the following is the correct way to link an external JavaScript file?",
+    options: [
+      `<script href="script.js"></script>`,
+      `<script name="script.js"></script>`,
+      `<script src="script.js"></script>`,
+      `<script link="script.js"></script>`
+    ],
+    correctAnswer: 2
+  },
+  {
+    id: 40,
+    question: "In CSS, 'flex' is a property of which layout module?",
+    options: [
+      "Grid Layout",
+      "Flexbox",
+      "Box Model",
+      "Table Layout"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 41,
+    question: "Which HTML tag is used to create an unordered list?",
+    options: [
+      "<ol>",
+      "<ul>",
+      "<li>",
+      "<list>"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 42,
+    question: "What does the 'position: absolute;' property do in CSS?",
+    options: [
+      "Positions an element relative to its normal position",
+      "Positions an element relative to the nearest positioned ancestor",
+      "Positions an element relative to the viewport",
+      "Positions an element in the normal flow"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 43,
+    question: "How do you make a text bold in HTML?",
+    options: [
+      "<bold>Text</bold>",
+      "<b>Text</b>",
+      "<strong>Text</strong>",
+      "Both B and C"
+    ],
+    correctAnswer: 3
+  },
+  {
+    id: 44,
+    question: "Which HTML tag is used to define an internal style sheet?",
+    options: [
+      "<script>",
+      "<style>",
+      "<css>",
+      "<link>"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 45,
+    question: "How do you write 'Hello World' in an alert box using JavaScript?",
+    options: [
+      `msg('Hello World');`,
+      `alert('Hello World');`,
+      `alertBox('Hello World');`,
+      `console.log('Hello World');`
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 46,
+    question: "Which property is used to change the left margin of an element in CSS?",
+    options: [
+      "margin-left",
+      "padding-left",
+      "indent-left",
+      "text-indent"
+    ],
+    correctAnswer: 0
+  },
+  {
+    id: 47,
+    question: "What does the 'display: flex;' property do in CSS?",
+    options: [
+      "Creates a grid layout",
+      "Creates a flexible box layout",
+      "Hides an element",
+      "Fixes an element's position"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 48,
+    question: "Which HTML tag is used to define a footer for a document or section?",
+    options: [
+      "<bottom>",
+      "<footer>",
+      "<foot>",
+      "<section>"
+    ],
+    correctAnswer: 1
+  },
+  {
+    id: 49,
+    question: "In JavaScript, which symbol is used for comments?",
+    options: [
+      "// for single-line, /* */ for multi-line comments",
+      "# for single-line comments",
+      "` for comments",
+      "<!-- for comments -->"
+    ],
+    correctAnswer: 0
+  },
+  {
+    id: 50,
+    question: "Which CSS property is used to change the background color of an element?",
+    options: [
+      "bgcolor",
+      "background-color",
+      "color-background",
+      "bg-color"
+    ],
+    correctAnswer: 1
   }
 ];
 
