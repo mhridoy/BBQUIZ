@@ -6,7 +6,7 @@ import questions from '../questions'; // Import the questions
 
 const Quiz = () => {
   const [answers, setAnswers] = useState({});
-  const [timeLeft, setTimeLeft] = useState(1500); // 25 minutes
+  const [timeLeft, setTimeLeft] = useState(2500); // 35 minutes
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const navigate = useNavigate();
 
